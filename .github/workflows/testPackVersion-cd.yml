@@ -21,6 +21,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        token: ${{github.token}}
     - uses: gittools/actions/gitversion/setup@v0.9.7
       with:
         versionSpec: '5.x'
