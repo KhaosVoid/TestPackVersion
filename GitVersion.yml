@@ -1,4 +1,5 @@
 assembly-versioning-scheme: MajorMinorPatch
+assembly-file-versioning-format: '{Major}.{Minor}.{env:github.run_number}'
 mode: Mainline
 next-version: 0.7.0
 branches:
