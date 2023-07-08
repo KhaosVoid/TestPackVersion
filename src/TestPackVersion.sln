@@ -3,9 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPackVersion", "TestPackVersion\TestPackVersion.csproj", "{4C26E84F-3E37-4098-A07F-D421120F9F60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPackVersion", "TestPackVersion\TestPackVersion.csproj", "{4C26E84F-3E37-4098-A07F-D421120F9F60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPackVersion.UnitTest", "TestPackVersion.UnitTest\TestPackVersion.UnitTest.csproj", "{2F233557-0769-452F-BB07-DAA91B0602C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPackVersion.UnitTest", "TestPackVersion.UnitTest\TestPackVersion.UnitTest.csproj", "{2F233557-0769-452F-BB07-DAA91B0602C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GitHub Workflows", "GitHub Workflows", "{2809BB7F-E14B-4E71-8E6A-715A9E5FE434}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\testPackVersion-cd.yml = ..\.github\workflows\testPackVersion-cd.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

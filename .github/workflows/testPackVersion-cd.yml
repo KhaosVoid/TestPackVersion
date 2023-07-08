@@ -1,0 +1,62 @@
+name: TestPackVersion CD
+
+on:
+  push:
+    branches: [ 'main' ]
+
+jobs:
+  build:
+    name: TestPackVersion CD
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotent-version: [ '7.0.x' ]
+    defaults:
+      run:
+        working-directory: ./src
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{matrix.dotnet-version}}
+        source-url: https://nuget.pkg.github.com/${{github.repository_owner}}/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{github.token}}
+
+    - name: Determine Version
+      id: gitversion
+      uses: gittools/actions/gitversion/execute@v0.9.7
+      with:
+        useConfigFile: true
+
+    # Restore
+    - name: Restore (TestPackVersion)
+      run: dotnet restore TestPackVersion
+    - name: Restore (TestPackVersion.UnitTest)
+      run: dotnet restore TestPackVersion.UnitTest
+
+    # Build
+    - name: Build (TestPackVersion)
+      run: dotnet build TestPackVersion --configuration Release --no-restore
+    - name: Build (TestPackVersion)
+      run: dotnet build TestPackVersion.UnitTest --configuration Release --no-restore
+
+    # Test
+    - name: Test (TestPackVersion.UnitTest)
+      run: dotnet test TestPackVersion.UnitTest --no-restore --verbosity normal
+
+    # Create NuGet Packages
+    - name: Create NuGet Package (TestPackVersion)
+      run: dotnet pack TestPackVersion --configuration Release --no-restore -p:Version=$GITVERSION_SEMVER
+
+    # Publish NuGet Packages
+    - name: Publish NuGet Package to GitHub Package Repository (TestPackVersion)
+      run: dotnet nuget push ./TestPackVersion/bin/Release/*.nupkg
