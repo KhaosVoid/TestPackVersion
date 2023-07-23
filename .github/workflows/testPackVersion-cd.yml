@@ -37,8 +37,6 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.7
       with:
         useConfigFile: true
-      env:
-        GITHUB_RUN_NUMBER: ${{github.run_number}}
 
     # Restore
     - name: Restore (TestPackVersion)
