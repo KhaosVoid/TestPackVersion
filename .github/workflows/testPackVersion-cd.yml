@@ -37,6 +37,8 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.7
       with:
         useConfigFile: true
+      env:
+        NUGET_PACKAGE_VERSION: ${{steps.gitversion.outputs.major}}.${{steps.gitversion.outputs.minor}}.${{steps.gitversion.outputs.commitsSinceVersionSource}}
 
     # Restore
     - name: Restore (TestPackVersion)
@@ -56,7 +58,7 @@ jobs:
 
     # Create NuGet Packages
     - name: Create NuGet Package (TestPackVersion)
-      run: dotnet pack TestPackVersion --configuration Release --no-restore -p:Version=${{steps.gitversion.outputs.major}}.${{steps.gitversion.outputs.minor}}.${{steps.gitversion.outputs.commitsSinceVersionSource}}
+      run: dotnet pack TestPackVersion --configuration Release --no-restore -p:Version=${{NUGET_PACKAGE_VERSION}}
 
     # Publish NuGet Packages
     - name: Publish NuGet Package to GitHub Package Repository (TestPackVersion)
