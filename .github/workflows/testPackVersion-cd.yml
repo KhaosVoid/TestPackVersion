@@ -58,7 +58,7 @@ jobs:
 
     # Create NuGet Packages
     - name: Create NuGet Package (TestPackVersion)
-      run: dotnet pack TestPackVersion --configuration Release --no-restore -p:Version=${{env:NUGET_PACKAGE_VERSION}}
+      run: dotnet pack TestPackVersion --configuration Release --no-restore -p:Version=$NUGET_PACKAGE_VERSION
 
     # Publish NuGet Packages
     - name: Publish NuGet Package to GitHub Package Repository (TestPackVersion)
