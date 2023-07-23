@@ -38,7 +38,8 @@ jobs:
       with:
         useConfigFile: true
 
-    - id: nugetPackageVersion
+    - name: Set Nuget Package Version Variable
+      id: nugetPackageVersion
       run: |
         echo "version=${{steps.gitversion.outputs.major}}.${{steps.gitversion.outputs.minor}}.${{steps.gitversion.outputs.commitsSinceVersionSource}}" >> $GITHUB_OUTPUT
 
